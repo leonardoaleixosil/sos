@@ -1,4 +1,5 @@
 "use client";
+import ChatOptions from "@/components/ChatOptions";
 import ChatForm from "@/components/ChatForm";
 import ChatMessage from "@/components/ChatMessage";
 import { socket } from "@/lib/socketClient";
@@ -101,6 +102,18 @@ export default function Home() {
   };
 
   const googleMapsLink = `https://www.google.com/maps?q=${clientInfo.latitude},${clientInfo.longitude}`;
+ const botResponses: Record<"Socorro" | "Pane Mecânica" | "Acidente" | "Animais na Pista", string> = {
+  "Socorro": "🚨 Enviando equipe de resgate para sua localização!",
+  "Pane Mecânica": "🔧 Você precisa de um guincho? Informe sua localização!",
+  "Acidente": "⚠️ Já acionamos as autoridades para auxílio!",
+  "Animais na Pista": "🐾 Vamos enviar uma equipe para retirar os animais com segurança."
+};
+
+const handleOptionSelect = (option: keyof typeof botResponses) => {
+  const message = botResponses[option];
+  setMessages((prev) => [...prev, { sender: "bot", message }]);
+  setJoined(true);
+};
 
   return (
     <div style={{ color: "#195D5B" }}>
@@ -154,6 +167,7 @@ export default function Home() {
             >
               Entrar
             </button>
+             <ChatOptions onOptionSelect={handleOptionSelect} />
           </div>
         ) : (
           <div className="w-full max-w-3xl mx-auto">
