@@ -15,7 +15,7 @@ const ChatForm = ({ onSendMessage, }: { onSendMessage: (message: string) => void
       <form onSubmit={handleSubmit} className="flex gap-2 mt-4">
           <input type="text"
               onChange={(e) => setMessage(e.target.value)} className="flex-1 px-4 border-2 py-2 rounded-lg focus:outline-none" placeholder="Digite sua mensagem aqui..." />
-          <button type="submit" className="px-4 py-2 bg-green-500 text-white rounded-lg">Enviar</button>
+          <button type="submit" className="px-4 py-2 text-white rounded-lg" style={{backgroundColor:"#195D5B"}}>Enviar</button>
     </form>
   );
 };

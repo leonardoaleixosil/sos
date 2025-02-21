@@ -28,11 +28,11 @@ export default function RootLayout({
         <title>Via Appia SOS Rodovias</title>
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
       >
-        <div className="mx-auto max-w-7xl px-4">{children}</div>
+        <div className="flex-grow mx-auto max-w-7xl px-4">{children}</div>
 
-        <footer className="text-center py-4 bg-gray-400 bottom-0 w-full fixed text-white">
+        <footer className="text-center py-4 bg-gray-400 w-full text-white">
           <p>&copy; 2025 Via Appia. Todos os direitos reservados.</p>
         </footer>
       </body>
