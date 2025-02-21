@@ -20,6 +20,7 @@ export default function Home() {
     latitude: "",
     longitude: "",
   });
+
   useEffect(() => {
     socket.on("message", (data) => {
       setMessages((prev) => [...prev, data]);
@@ -45,18 +46,61 @@ export default function Home() {
     fetchClientInfo();
   }, []);
 
+  useEffect(() => {
+    const getLocation = () => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+            setClientInfo((prev) => ({
+              ...prev,
+              latitude: latitude.toString(),
+              longitude: longitude.toString(),
+            }));
+
+            // Enviar a localização para o backend
+            fetch("/api/saveLocation", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ latitude, longitude }),
+            })
+              .then((response) => response.json())
+              .then((data) => {
+                console.log("Success:", data);
+              })
+              .catch((error) => {
+                console.error("Error:", error);
+              });
+          },
+          (error) => {
+            console.error("Error getting location:", error);
+          }
+        );
+      } else {
+        console.error("Geolocalização não é suportada por este navegador.");
+      }
+    };
+
+    getLocation();
+  }, []);
+
   const handleJoinRoom = () => {
     if (room && userName) {
       socket.emit("join-room", { room, username: userName });
       setJoined(true);
     }
   };
+
   const handleSendMessage = (message: string) => {
     const data = { room, message, sender: userName };
     setMessages((prev) => [...prev, { sender: userName, message }]);
     socket.emit("message", data);
   };
-   const googleMapsLink = `https://www.google.com/maps?q=${clientInfo.latitude},${clientInfo.longitude}`;
+
+  const googleMapsLink = `https://www.google.com/maps?q=${clientInfo.latitude},${clientInfo.longitude}`;
 
   return (
     <div style={{ color: "#195D5B" }}>
@@ -78,10 +122,7 @@ export default function Home() {
           concessão via SP SERRA.
         </p>
         <p id="ip-address">IP: {clientInfo.ip}</p>
-        <p id="location">
-          Localização: {clientInfo.city}, {clientInfo.region},{" "}
-          {clientInfo.country}
-        </p>
+        
         <p>
           <a href={googleMapsLink} target="_blank" rel="noopener noreferrer">
             Ver no Google Maps
