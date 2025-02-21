@@ -23,12 +23,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="pt-BR">
+      <head>
+        <title>Via Appia SOS Rodovias</title>
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <div className="mx-auto max-w-7xl px-4">{children}</div>
-        
+
+        <footer className="text-center py-4 bg-gray-400 bottom-0 w-full fixed text-white">
+          <p>&copy; 2025 Via Appia. Todos os direitos reservados.</p>
+        </footer>
       </body>
     </html>
   );
