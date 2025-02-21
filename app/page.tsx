@@ -12,14 +12,14 @@ export default function Home() {
     { sender: string; message: string }[]
   >([]);
   const [userName, setUserName] = useState("");
-  // const [clientInfo, setClientInfo] = useState({
-  //   ip: "",
-  //   city: "",
-  //   region: "",
-  //   country: "",
-  //   latitude: "",
-  //   longitude: "",
-  // });
+  const [clientInfo, setClientInfo] = useState({
+    ip: "",
+    city: "",
+    region: "",
+    country: "",
+    latitude: "",
+    longitude: "",
+  });
   useEffect(() => {
     socket.on("message", (data) => {
       setMessages((prev) => [...prev, data]);
@@ -35,15 +35,15 @@ export default function Home() {
     };
   }, []);
 
-  // useEffect(() => {
-  //   const fetchClientInfo = async () => {
-  //     const response = await fetch("/api/getClientInfo");
-  //     const data = await response.json();
-  //     setClientInfo(data);
-  //   };
+  useEffect(() => {
+    const fetchClientInfo = async () => {
+      const response = await fetch("/api/getClientInfo");
+      const data = await response.json();
+      setClientInfo(data);
+    };
 
-  //   fetchClientInfo();
-  // }, []);
+    fetchClientInfo();
+  }, []);
 
   const handleJoinRoom = () => {
     if (room && userName) {
@@ -75,14 +75,14 @@ export default function Home() {
           Estamos aqui para ajudá-lo em emergências no trecho atendido pela
           concessão via SP SERRA.
         </p>
-        {/* <p id="location">
+        <p id="location">
           Localização: {clientInfo.city}, {clientInfo.region},{" "}
           {clientInfo.country}
         </p>
         <p id="ip-address">IP: {clientInfo.ip}</p>
         <p id="coordinates">
           Latitude: {clientInfo.latitude}, Longitude: {clientInfo.longitude}
-        </p> */}
+        </p>
       </main>
       <div className="flex mt-2 justify-center w-full">
         {!joined ? (
