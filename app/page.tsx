@@ -56,6 +56,8 @@ export default function Home() {
     setMessages((prev) => [...prev, { sender: userName, message }]);
     socket.emit("message", data);
   };
+   const googleMapsLink = `https://www.google.com/maps?q=${clientInfo.latitude},${clientInfo.longitude}`;
+
   return (
     <div style={{ color: "#195D5B" }}>
       <header className="flex max-w-lg justify-center items-center mx-auto">
@@ -75,13 +77,15 @@ export default function Home() {
           Estamos aqui para ajudá-lo em emergências no trecho atendido pela
           concessão via SP SERRA.
         </p>
+        <p id="ip-address">IP: {clientInfo.ip}</p>
         <p id="location">
           Localização: {clientInfo.city}, {clientInfo.region},{" "}
           {clientInfo.country}
         </p>
-        <p id="ip-address">IP: {clientInfo.ip}</p>
-        <p id="coordinates">
-          Latitude: {clientInfo.latitude}, Longitude: {clientInfo.longitude}
+        <p>
+          <a href={googleMapsLink} target="_blank" rel="noopener noreferrer">
+            Ver no Google Maps
+          </a>
         </p>
       </main>
       <div className="flex mt-2 justify-center w-full">
