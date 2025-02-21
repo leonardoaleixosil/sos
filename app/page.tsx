@@ -123,7 +123,7 @@ export default function Home() {
         </p>
         <p id="ip-address">IP: {clientInfo.ip}</p>
         
-        <p>
+        <p> 📍 Sua localização: 
           <a href={googleMapsLink} target="_blank" rel="noopener noreferrer">
             Ver no Google Maps
           </a>
