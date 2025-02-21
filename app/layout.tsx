@@ -26,6 +26,7 @@ export default function RootLayout({
     <html lang="pt-BR">
       <head>
         <title>Via Appia SOS Rodovias</title>
+        <link rel="icon" href="/icon-via.png" />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
